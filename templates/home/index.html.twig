@@ -11,34 +11,23 @@
 <div class="example-wrapper">
     <h1>Hello {{ name }}!</h1>
 
-{# cette variable est de type string donc on peut l'afficher directement#}
-   <p>Ecrit par auteur : {{ auteur }}</p>
-{# Article est un objet issu de la class std donc accéder à sa props #}
-
-    <h2>{{ article.title }}</h2>
-    <p>{{ article.intro }}</p>
-    <p>{{ article.content }}</p>
-{# User pareil objet donc objet.proprieteNom #}
-    <h3>{{ user.name }}</h3>
-    <p>{{ user.age }}</p>
-    {# Ici de type string donc tout simplement le nom de la variable donné dans a vue #}
-    <p>{{ jeanDaniel }}</p>
-    <p>{{jd3000}}</p>
-
-
-{% if article.title %}
-<p>L'article possède un titre</p>
+{% if user.isConnected %}
+<a href=""> <button>Déconnexion</button></a> 
+{% else %}
+<button>Connexion</button>
+    
 {% endif %}
-
-{% if article.title == "Théorie du complot" %}
-<p>L'article parle d'un complot</p>
-{% endif %}
-    {% if true %}
-    <p>Je suis là</p>
-    <img width="350px" src="{{image}}" alt="jd3000">
+<h3>Liste de jeux :</h3>
+{% for game, multi in games %}
+    <ul>
+    {# loop.index pour indéxer automatiquement, option : {{loop.index0}}, pour démarrer à 0, {{loop.index + 10}}, pour ajouter 10 à chanque index Pour faire des additions :  {{multi + 150}} #}
+    <li> {{loop.index}}. {{game}} : {{multi }} {% if multi > 1 %}
+    joueurs maximum
     {% else %}
-        <p>Je ne suis pas là</p>
-    {% endif %}
+       joueur maximum  
+    {% endif %} 
+    </li></ul>
+{% endfor %}
 
 </div>
 {% endblock %}
