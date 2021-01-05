@@ -9,12 +9,36 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ name }}! ✅</h1>
+    <h1>Hello {{ name }}!</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/symfony/YesCode/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/symfony/YesCode/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
+{# cette variable est de type string donc on peut l'afficher directement#}
+   <p>Ecrit par auteur : {{ auteur }}</p>
+{# Article est un objet issu de la class std donc accéder à sa props #}
+
+    <h2>{{ article.title }}</h2>
+    <p>{{ article.intro }}</p>
+    <p>{{ article.content }}</p>
+{# User pareil objet donc objet.proprieteNom #}
+    <h3>{{ user.name }}</h3>
+    <p>{{ user.age }}</p>
+    {# Ici de type string donc tout simplement le nom de la variable donné dans a vue #}
+    <p>{{ jeanDaniel }}</p>
+    <p>{{jd3000}}</p>
+
+
+{% if article.title %}
+<p>L'article possède un titre</p>
+{% endif %}
+
+{% if article.title == "Théorie du complot" %}
+<p>L'article parle d'un complot</p>
+{% endif %}
+    {% if true %}
+    <p>Je suis là</p>
+    <img width="350px" src="{{image}}" alt="jd3000">
+    {% else %}
+        <p>Je ne suis pas là</p>
+    {% endif %}
+
 </div>
 {% endblock %}
