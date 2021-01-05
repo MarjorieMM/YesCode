@@ -11,13 +11,33 @@
 <div class="example-wrapper">
     <h1>Hello {{ name }}!</h1>
 
- <p> {{city}}</p>
+{# Pour créer des données en dur en attentant le backend (base de données) #}
+{% set item = {"nom" : "Pomme", "forme" : "Ronde", "poids" : 200} %}
 
-{# Pipes comme en Angular... #}
- <p>{{city | upper }}</p>
- <p>{{ [1, 2, 3]|join('>') }}</p>
+<p>Nom : {{item.nom}}</p>
+<p>Forme : {{item.forme}}</p>
+<p>Poids : {{item.poids}}</p>
 
- <p>{{city | title}}</p>
+<hr>
+
+{% set michel = {"name" : "Michel", "age" : 14} %}
+{% set zak = {"name" : "zAK", "age" : 33} %}
+{% set david = {"name" : "David", "age" : null} %}
+{% set users = {michel, zak, david} %}
+
+
+<h3>Utilisateurs :</h3>
+{% for user in users %}
+
+<p>Name : {{user.name | title}}</p>
+
+{% if user.age %}
+<p>Age: {{user.age}}</p>
+{% else %}
+    <p>Age: Undefined</p>
+{% endif %}
+    <hr>
+{% endfor %}
 
 </div>
 {% endblock %}
