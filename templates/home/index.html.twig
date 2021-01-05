@@ -10,24 +10,13 @@
 
 <div class="example-wrapper">
     <h1>Hello {{ name }}!</h1>
-
-{% if user.isConnected %}
-<a href=""> <button>Déconnexion</button></a> 
-{% else %}
-<button>Connexion</button>
+<ul>
+{% for i in 0..10 %}
+{# Pour créer une boucle for avec $i =0; $<=10; $i++ #}
+<li>
+Element : {{i}}</li>
     
-{% endif %}
-<h3>Liste de jeux :</h3>
-{% for game, multi in games %}
-    <ul>
-    {# loop.index pour indéxer automatiquement, option : {{loop.index0}}, pour démarrer à 0, {{loop.index + 10}}, pour ajouter 10 à chanque index Pour faire des additions :  {{multi + 150}} #}
-    <li> {{loop.index}}. {{game}} : {{multi }} {% if multi > 1 %}
-    joueurs maximum
-    {% else %}
-       joueur maximum  
-    {% endif %} 
-    </li></ul>
-{% endfor %}
+{% endfor %}</ul>
 
 </div>
 {% endblock %}
