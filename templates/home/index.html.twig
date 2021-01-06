@@ -1,3 +1,4 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello HomeController!{% endblock %}
@@ -20,11 +21,16 @@
 
 <hr>
 
-{% set michel = {"name" : "Michel", "age" : 14} %}
-{% set zak = {"name" : "zAK", "age" : 33} %}
-{% set david = {"name" : "David", "age" : null} %}
+{% set michel = {"name" : "Michel", "age" : 14, "address" : "4 rue des Fleurs"    } %}
+{% set zak = {"name" : "zAK", "age" : 33, "address" : "5 rue du Vide"  } %}
+{% set david = {"name" : "David", "age" : null, "address" : "7 rue du Vin"    } %}
 {% set users = {michel, zak, david} %}
+<div class="row">
+<div class="col">2</div>
+<div class="col">2</div>
+<div class="col">3</div>
 
+</div>
 
 <h3>Utilisateurs :</h3>
 {% for user in users %}
@@ -34,8 +40,9 @@
 {% if user.age %}
 <p>Age: {{user.age}}</p>
 {% else %}
-    <p>Age: Undefined</p>
+    <p>Age: Non communiqué</p>
 {% endif %}
+<p>{{user.address}}</p>
     <hr>
 {% endfor %}
 
