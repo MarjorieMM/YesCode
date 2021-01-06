@@ -1,50 +1,5 @@
+{% extends "base.html.twig" %}
 
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello HomeController!{% endblock %}
-
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ name }}!</h1>
-
-{# Pour créer des données en dur en attentant le backend (base de données) #}
-{% set item = {"nom" : "Pomme", "forme" : "Ronde", "poids" : 200} %}
-
-<p>Nom : {{item.nom}}</p>
-<p>Forme : {{item.forme}}</p>
-<p>Poids : {{item.poids}}</p>
-
-<hr>
-
-{% set michel = {"name" : "Michel", "age" : 14, "address" : "4 rue des Fleurs"    } %}
-{% set zak = {"name" : "zAK", "age" : 33, "address" : "5 rue du Vide"  } %}
-{% set david = {"name" : "David", "age" : null, "address" : "7 rue du Vin"    } %}
-{% set users = {michel, zak, david} %}
-<div class="row">
-<div class="col">2</div>
-<div class="col">2</div>
-<div class="col">3</div>
-
-</div>
-
-<h3>Utilisateurs :</h3>
-{% for user in users %}
-
-<p>Name : {{user.name | title}}</p>
-
-{% if user.age %}
-<p>Age: {{user.age}}</p>
-{% else %}
-    <p>Age: Non communiqué</p>
-{% endif %}
-<p>{{user.address}}</p>
-    <hr>
-{% endfor %}
-
-</div>
-{% endblock %}
+{% block title %}Accueil{% endblock %}
+{% block body %}<h2>Page d'accueil</h2>{% endblock %}
+{% block footer %}Je suis un footer{% endblock %}

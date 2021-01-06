@@ -2,11 +2,17 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>Yescode - {% block title %}{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+
+
     </head>
     <body>
+    <h1>Bienvenue sur Yescode - bannière</h1>
         {% block body %}{% endblock %}
+             <footer>
+            {% block footer %} Copyright - 2021 - Amar2050{% endblock %}
+        </footer>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
