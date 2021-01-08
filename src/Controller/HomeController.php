@@ -2,8 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Fruit;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\FruitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,21 +16,13 @@ class HomeController extends AbstractController
     //  Pour ajouter dans la base de données :
     // Le même produit s'ajoute à chaque chargement de page
 
-    public function index(EntityManagerInterface $manager): Response
+    public function index(FruitRepository $repo): Response
     {
-        $banane = new Fruit();
-        $banane->setNom('banane');
-        $banane->setForme('allongée');
-        $banane->setPoids(200);
-        $banane->setPrix(1.2);
-
-        dump($banane);
-
-        $manager->persist($banane);
-        $manager->flush();
+        $fruits = $repo->findAll();
+        dump($fruits);
 
         return $this->render('home/index.html.twig', [
-            'fruit' => $banane,
-                  ]);
+            'fruits' => $fruits,
+            ]);
     }
 }
