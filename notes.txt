@@ -15,6 +15,7 @@ Puis pour créer des tables :
 1. php bin/console make:entity Fruit
 Créé un dossier Entity dans src avec un fichier par table
 Remplir les champs comme demandés
+ => on peut refaire cette commande plus tard pour rajouter des champs dans la table puis passer à 2 et 3.
 
 2. php bin/console make:migration
 Créé le script de migration (qui va executer les commandes mysql) dans un dossier migration.

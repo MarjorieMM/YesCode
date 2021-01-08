@@ -17,6 +17,8 @@ class AppFixtures extends Fixture
             $fruit->setForme('Forme n°'.$i);
             $fruit->setPoids($i + 1);
             $fruit->setPrix($i + 2);
+            $fruit->setTva(5);
+
             $manager->persist($fruit);
         }
         // $product = new Product();

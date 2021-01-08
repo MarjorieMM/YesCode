@@ -37,6 +37,11 @@ class Fruit
      */
     private $prix;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $tva;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Fruit
     public function setPrix(int $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getTva(): ?int
+    {
+        return $this->tva;
+    }
+
+    public function setTva(int $tva): self
+    {
+        $this->tva = $tva;
 
         return $this;
     }
