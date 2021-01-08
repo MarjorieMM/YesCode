@@ -6,18 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+class ArticleController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/article", name="article")
      */
-
-    //  Pour ajouter dans la base de données :
-    // Le même produit s'ajoute à chaque chargement de page
-
     public function index(): Response
     {
-        return $this->render('home/index.html.twig', [
-            ]);
+        return $this->render('article/index.html.twig', [
+            'controller_name' => 'ArticleController',
+        ]);
     }
 }

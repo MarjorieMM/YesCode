@@ -11,6 +11,8 @@ Puis faire dans le terminal :
 php bin/console doctrine:database:create
 cela créé la base de données automatiquement
 
+//////////////
+
 Puis pour créer des tables : 
 1. php bin/console make:entity Fruit
 Créé un dossier Entity dans src avec un fichier par table
@@ -38,3 +40,9 @@ Puis faire un persist
 bin/console doctrine:fixtures:load (--append)
 Pour faire entrer les données sur la base de données
 mettre l'option append si on ne veut pas effacer les données déjà présentes
+
+Pour créer un controller :
+
+dans le terminal :
+
+symfony console make:controller ArticleController

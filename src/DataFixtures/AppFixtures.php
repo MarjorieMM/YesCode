@@ -9,6 +9,11 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        for ($i=0; $i < 4; $i++) { 
+            # code...
+
+            $article = new 
+        }
         // code...
     }
 
