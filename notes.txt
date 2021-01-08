@@ -1,0 +1,25 @@
+Pour créer une base de données : 
+
+dans .env :
+
+Décommenter la ligne :
+DATABASE_URL="mysql://root:jarvis@127.0.0.1:3306/yescode?serverVersion=5.7"
+Commenter les autres si elles ne le sont packages
+
+
+Puis faire dans le terminal : 
+php bin/console doctrine:database:create
+cela créé la base de données automatiquement
+
+Puis pour créer des tables : 
+1. php bin/console make:entity Fruit
+Créé un dossier Entity dans src avec un fichier par table
+Remplir les champs comme demandés
+
+2. php bin/console make:migration
+Créé le script de migration (qui va executer les commandes mysql) dans un dossier migration.
+
+3. php bin/console doctrine:migrations:migrate
+Ajoute la table à notre base de données automatiquement en utilisant le fichier présent dans le dossier migration.
+
+
