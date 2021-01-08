@@ -23,3 +23,17 @@ Créé le script de migration (qui va executer les commandes mysql) dans un doss
 Ajoute la table à notre base de données automatiquement en utilisant le fichier présent dans le dossier migration.
 
 
+
+Fixtures : 
+
+Pour créer et peupler la base de données avec des données fausses (pour tester)
+Dans le terminal faire :
+composer require orm-fixtures --dev
+Créer le dossier DataFixtures et AppFixtures.php
+Dans ce fichier créer des objets avec les setters et getters dans la fonction
+Puis faire un persist
+
+
+bin/console doctrine:fixtures:load (--append)
+Pour faire entrer les données sur la base de données
+mettre l'option append si on ne veut pas effacer les données déjà présentes
