@@ -32,12 +32,15 @@ Fixtures :
 Pour créer et peupler la base de données avec des données fausses (pour tester)
 Dans le terminal faire :
 composer require orm-fixtures --dev
-Créer le dossier DataFixtures et AppFixtures.php
-Dans ce fichier créer des objets avec les setters et getters dans la fonction
+
+Pour créer le dossier DataFixtures et AppFixtures.php,
+Dans le terminal faire :
+php bin/console make:fixtures
+Dans ce fichier créer des objets avec les setters dans la fonction
 Puis faire un persist
 
 
-bin/console doctrine:fixtures:load (--append)
+php bin/console doctrine:fixtures:load (--append)
 Pour faire entrer les données sur la base de données
 mettre l'option append si on ne veut pas effacer les données déjà présentes
 

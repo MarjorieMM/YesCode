@@ -1,20 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ArticleController!{% endblock %}
+
+{% block title %}Articles{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="jumbotron text-center my-5 shadow">
+        <h1 class="display-4">Voici nos articles</h1>
+        <p class="lead">Ici ça parle de code, langages et technos de demain </p>
+        <hr class="my-4">
+       
+        <p class="lead">
+         <h2 class="text-center h1">Les derniers articles</h2>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/symfony/YesCode/src/Controller/ArticleController.php'|file_link(0) }}">src/Controller/ArticleController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/symfony/YesCode/templates/article/index.html.twig'|file_link(0) }}">templates/article/index.html.twig</a></code></li>
-    </ul>
+    <div class="row">
+        {% for article in articles %}
+        {# {{dump(article)}} #}
+    {% include "partials/card.article2.html.twig" %}
+{% endfor %}
+        </div>   
+          {# <a class="btn btn-primary btn-lg shadow" href="#" role="button">  &lt;/&gt; Actualités &lt;/&gt; </a> #}
+        </p>
+    </div>
+
+   
+      
+
+
 </div>
+
+
+
 {% endblock %}

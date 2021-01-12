@@ -23,7 +23,7 @@
 
     <div class="row">
         {% for article in articles %}
-    {% include "partials/card.article.html.twig" %}
+    {% include "partials/card.article.html.twig" with article %}
 {% endfor %}
         </div>   
       
