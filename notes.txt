@@ -49,3 +49,8 @@ Pour créer un controller :
 dans le terminal :
 
 symfony console make:controller ArticleController
+
+SLUG
+composer require cocur/slugify
+
+import : use Cocur\Slugify\Slugify;

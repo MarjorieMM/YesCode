@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ArticleRepository;
+use Cocur\Slugify\Slugify;
 use Faker;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,25 +20,28 @@ class HomeController extends AbstractController
 
     public function index(ArticleRepository $repo): Response
     {
-        $articles = $repo->FindLastArticles(3);
-        $faker = Faker\Factory::create('fr_FR');
+        $articles = $repo->findLastArticles(3);
+        $article = $repo->findOneById(60);
 
-        // $title = $faker->sentence(2);
+        $slugify = new Slugify();
 
-        // $intro = $faker->paragraph(2);
+        $slug = $slugify->slugify($article->getTitle().time().hash('sha1', $article->getIntro()));
 
-        $content = '<p>'.implode('</p><p>', $faker->paragraphs(7)).'</p>';
+        dump($slug);
 
-        $createdAt = $faker->dateTimeBetween('- 3 months');
+        // $articles = $repo->FindLastArticles(3);
+        // $faker = Faker\Factory::create('fr_FR');
 
-        dump($createdAt);
+        // $content = '<p>'.implode('</p><p>', $faker->paragraphs(7)).'</p>';
 
-        $image = 'https://picsum.photos/400/300';
+        // $createdAt = $faker->dateTimeBetween('- 3 months');
+
+        // dump($createdAt);
+
+        // $image = 'https://picsum.photos/400/300';
 
         return $this->render('home/index.html.twig', [
             'articles' => $articles,
-            'image' => $image,
-            'content' => $content,
             ]);
     }
 }
