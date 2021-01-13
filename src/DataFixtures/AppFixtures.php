@@ -11,6 +11,7 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        // gestion des articles sans Faker :
         // for ($i = 1; $i < 4; ++$i) {
         //     // code...
 
@@ -24,6 +25,8 @@ class AppFixtures extends Fixture
         //     $manager->persist($article);
         // }
 
+        // gestion des articles avec Faker :
+
         $faker = Factory::create('fr_FR');
 
         for ($i = 0; $i <= 20; ++$i) {
@@ -32,20 +35,16 @@ class AppFixtures extends Fixture
             $image = 'https://picsum.photos/400/300?random='.$i;
             $intro = $faker->paragraph(2);
             $content = '<p>'.implode('</p><p>', $faker->paragraphs(5)).'</p>';
-            $createdAt = $faker->dateTimeBetween('- 1 months');
+            // $createdAt = $faker->dateTimeBetween('- 1 months');
             $article->setTitle($title)
                     ->setImage($image)
                     ->setIntro($intro)
-                    ->setContent($content)
-                    ->setCreatedAt($createdAt);
+                    ->setContent($content);
+            // ->setCreatedAt($createdAt);
             $manager->persist($article);
         }
 
         // code...
         $manager->flush();
     }
-
-    // $product = new Product();
-        // $manager->persist($product);
-        // $manager->flush();
 }

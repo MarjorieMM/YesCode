@@ -5,7 +5,8 @@
 
         <div class="card-body">
         <p class="card-text">{{article.intro}}</p>
-        <a href="#" class="btn btn-primary rounded">Lire la suite</a>
+         <a href="{{path('article_show' , {'slug': article.slug}) }}" class="btn btn-primary rounded">Lire la suite</a>
+        {# <a href="#" class="btn btn-primary rounded">Lire la suite</a> #}
 
         {# <div class="my-3">
         <a href="#" class="card-link">{{article.author}}</a>
@@ -14,7 +15,7 @@
         </div>
         
  <div class="card-footer text-muted">
-                Il y a 2 jours
+                  {{ article.createdAt | date('d/m/Y à H:i') }}
                 </div>
         </div>
 

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
- * @ORM\HasLifecycleCallbacks()
+ * @ORM\HasLifecycleCallbacks
  */
 class Article
 {
@@ -52,7 +52,7 @@ class Article
     /**
      * Génère un slug automatiquement.
      *
-     *@ORM PrePersist
+     *@ORM\PrePersist
      *
      * @return void
      */
@@ -64,6 +64,14 @@ class Article
         }
     }
 
+    /**
+     * Génére la date automatiquement.
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     *
+     * @return void
+     */
     public function updateDate()
     {
         if (empty($this->createdAt)) {

@@ -54,3 +54,11 @@ SLUG
 composer require cocur/slugify
 
 import : use Cocur\Slugify\Slugify;
+
+Faire un formulaire :
+php bin/console make:form
+
+nom : ArticleType (toujours un nom avec type)
+lui donner le nom de l'entity (Article dans ce cas)
+Créé le dossier Form
+Pour ajouter un theme de formulaire : aller dans config/packages/twig.yaml et l'ajouter
