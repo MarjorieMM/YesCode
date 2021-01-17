@@ -3,31 +3,53 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+    private $encoder;
+
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
+
     public function load(ObjectManager $manager)
     {
-        // gestion des articles sans Faker :
-        // for ($i = 1; $i < 4; ++$i) {
-        //     // code...
-
-        //     $article = new Article();
-        //     $article->setTitle("Article n° $i");
-        //     $article->setIntro('Ceci est une intro');
-        //     $article->setContent('<h1>Lorem Ipsum...</h1>');
-        //     $article->setImage('https://www.webnode.com/blog/wp-content/uploads/2016/10/Blog-intro.jpg');
-        //     $article->setCreatedAt(new \DateTime('now'));
-
-        //     $manager->persist($article);
-        // }
-
-        // gestion des articles avec Faker :
-
+        // création des utilisateurs avec Faker
         $faker = Factory::create('fr_FR');
+
+        $users = [];
+        // Tableau users pour faire des auteurs aléatoires
+        $genders = ['male', 'female'];
+
+        for ($i = 0; $i <= 20; ++$i) {
+            $user = new User();
+            $gender = $faker->randomElement($genders);
+            $firstname = $faker->firstname($gender);
+            $lastname = $faker->lastName;
+            $email = $faker->email;
+            $picture = 'https://randomuser.me/api/portraits/';
+            $pictureId = $faker->numberBetween(1, 99).'.jpg';
+            $picture .= ($gender == 'male' ? 'men/' : 'women/').$pictureId;
+            $hash = $this->encoder->encodePassword($user, 'password');
+            $presentation = $faker->sentence();
+
+            $user->setFirstname($firstname)
+                     ->setLastname($lastname)
+                     ->setEmail($email)
+                     ->setHash($hash)
+                     ->setAvatar($picture)
+                     ->setPresentation($presentation)
+                     ->initSlug();
+            $manager->persist($user);
+            $users[] = $user;
+        }
+        // création des articles avec Faker
 
         for ($i = 0; $i <= 20; ++$i) {
             $article = new Article();
@@ -35,12 +57,12 @@ class AppFixtures extends Fixture
             $image = 'https://picsum.photos/400/300?random='.$i;
             $intro = $faker->paragraph(2);
             $content = '<p>'.implode('</p><p>', $faker->paragraphs(5)).'</p>';
-            // $createdAt = $faker->dateTimeBetween('- 1 months');
+            $authors = $users[mt_rand(0, count($users) - 1)];
             $article->setTitle($title)
                     ->setImage($image)
                     ->setIntro($intro)
                     ->setContent($content);
-            // ->setCreatedAt($createdAt);
+
             $manager->persist($article);
         }
 
