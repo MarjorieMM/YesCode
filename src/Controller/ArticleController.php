@@ -64,7 +64,7 @@ class ArticleController extends AbstractController
      */
     // public function index(ArticleRepository $repo): Response
     // {
-    public function show($slug, ArticleRepository $articleRepository): Response
+    public function show($slug, ArticleRepository $articleRepository)
     {
         $article = $articleRepository->findOneBySlug($slug);
         dump($article);
@@ -72,5 +72,45 @@ class ArticleController extends AbstractController
         return $this->render('article/show.html.twig', [
                 'article' => $article,
             ]);
+    }
+
+    /**
+     * @Route("/articles/{slug}/edit", name="article_update")
+     */
+    public function update(EntityManagerInterface $manager, Request $request, Article $article): Response
+    {
+        $form = $this->createForm(ArticleType::class, $article);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article = $form->getData();
+            $manager->persist($article);
+            $manager->flush();
+
+            $this->addFlash('success', "L'article <strong>{$article->getTitle()}</strong> a bien été mis à jour");
+
+            return $this->redirectToRoute('article_show', [
+                'slug' => $article->getSlug(),
+            ]);
+        }
+
+        return $this->render('article/update.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/articles/{slug}/delete", name="article_delete")
+     */
+    public function delete($slug, EntityManagerInterface $manager, ArticleRepository $articleRepository): Response
+    {
+        $article = $articleRepository->findOneBySlug($slug);
+        $manager->remove($article);
+        $manager->flush();
+
+        $this->addFlash('success', "L'article a bien été supprimé");
+
+        return $this->redirectToRoute('articles');
     }
 }

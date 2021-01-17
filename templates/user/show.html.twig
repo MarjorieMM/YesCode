@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{{user.id}}{% endblock %}
+
+{% block body %}
+<div class="container">
+
+<div class="card border-secondary mb-3 mx-auto" style="max-width: 28rem;">
+  <div class="card-header">{{user.firstname}} {{user.lastname}}</div>
+  <div class="card-body text-secondary">
+    <h5 class="card-title">{{user.email}}</h5>
+      <img src="{{user.avatar}}" class="card-img-top" alt="photo de {{user.firstname}} {{user.lastname}}">
+    <p class="card-text">{{user.presentation  | raw}}</p>
+       <a href="{{path('user_update' , {'slug': user.slug}) }}" class="btn btn-primary rounded">Mettre à jour l'utilisateur</a>
+    <a href="{{path('user_delete' , {'slug': user.slug}) }}" class="btn btn-danger rounded" onclick = "return confirm('Etes-vous sûre ?')")>Supprimer l'utilisateur</a> 
+  </div>
+</div>
+   
+    
+
+
+
+{% endblock %}

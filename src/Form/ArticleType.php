@@ -21,17 +21,18 @@ class ArticleType extends AbstractType
             'attr' => ['placeholder' => 'Tapez votre titre ici'],
         ])
         ->add('intro', TextType::class, [
-            'label' => 'Titre de l\'article',
+            'label' => 'Intro de l\'article',
             'attr' => ['placeholder' => 'Une phrase d\'accroche'],
-        ])
-        ->add('content', TextareaType::class, [
-            'label' => 'Votre contenu',
-            'attr' => ['placeholder' => 'Dites-nous tout'],
         ])
         ->add('image', UrlType::class, [
             'label' => 'Adresse de l\'image',
             'attr' => ['placeholder' => 'Coller un lien d\'image'],
         ])
+        ->add('content', TextareaType::class, [
+            'label' => 'Votre contenu',
+            'attr' => ['placeholder' => 'Dites-nous tout'],
+        ])
+
             ->add('Envoyer', SubmitType::class)
         ;
     }

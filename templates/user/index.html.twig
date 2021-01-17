@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+<div class="container">
+        <h1 class="display-4">Liste des utilisateurs enregistrés :</h1>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Prénom</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Email</th>
+      <th scope="col">Mot de passe</th>
+      <th scope="col">Avatar</th>
+      <th scope="col">Présentation</th>
+      <th scope="col">Slug</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <ul>
+    <li></li></ul>
+
+  {% for user in users %}
+    <tr >
+      <th scope="row">{{user.id}}</th>
+      <th scope="row">{{user.firstname}}</th>
+      <th scope="row">{{user.lastname}}</th>
+      <th scope="row">{{user.email}}</th>
+      <th scope="row">{{user.hash}}</th>
+    <th scope="row"> <img style="width:128px; heigth: 128px;" src="{{user.avatar}}" alt="image de {{user.fullname}}"> </th>
+
+      {# <th scope="row">{{name.fullname}}</th> #}
+
+      <th scope="row">{{user.presentation}}</th>
+      <th scope="row">{{user.slug}}</th>
+      <th scope="row"><a href="{{path('user_show' , {'slug': user.slug}) }}" class="btn btn-danger rounded">Voir l'utilisateur</a></th>
+    </tr>
+
+{% endfor %}
+
+  </tbody>
+</table>
+
+
+</div>
+
+
+{% endblock %}
