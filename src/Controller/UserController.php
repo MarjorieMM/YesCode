@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
@@ -19,7 +20,6 @@ class UserController extends AbstractController
     public function index(UserRepository $repo): Response
     {
         $users = $repo->selectUserWithFullname();
-        dump($users);
 
         return $this->render('user/index.html.twig', [
             'users' => $users,
@@ -29,7 +29,7 @@ class UserController extends AbstractController
     /**
      * @Route("/user/new", name="user_register")
      */
-    public function create(Request $request, EntityManagerInterface $manager)
+    public function create(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
 
@@ -38,6 +38,8 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $hash = $encoder->encodePassword($user, $user->getHash());
+            $user->setHash($hash);
             $manager->persist($user);
             $manager->flush();
 
@@ -56,13 +58,15 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{slug}/edit", name="user_update")
      */
-    public function update(EntityManagerInterface $manager, Request $request, User $user): Response
+    public function update(EntityManagerInterface $manager, Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
     {
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $hash = $encoder->encodePassword($user, $user->getHash());
+            $user->setHash($hash);
             $user = $form->getData();
             $manager->persist($user);
             $manager->flush();
@@ -105,11 +109,4 @@ class UserController extends AbstractController
                 'user' => $user,
             ]);
     }
-
-//     /**
-//      * @Route("/user/connect", name="user_connection")
-//      */
-
-//      public function connect(Request $request)
-//
 }

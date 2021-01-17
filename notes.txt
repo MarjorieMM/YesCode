@@ -63,7 +63,37 @@ lui donner le nom de l'entity (Article dans ce cas)
 Créé le dossier Form
 Pour ajouter un theme de formulaire : aller dans config/packages/twig.yaml et l'ajouter
 
+Pour hasher mot de passe :
+
+dans App\Entity\User : 
+use Symfony\Component\Security\Core\User\UserInterface;
+
+class User implements UserInterface
+{
+
+//...
+
+   public function eraseCredentials()
+    {
+    }
+    public function getSalt()
+    {
+    }
+    public function getPassword()
+    {
+    }
+    public function getUsername()
+    {
+    }
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+
 Pour l'authentication :
 
-Ajouter dans l'entity user : 
+Ajouter dans l'entity user (en cas d'erreur) : 
+
 php bin/console make:auth
+

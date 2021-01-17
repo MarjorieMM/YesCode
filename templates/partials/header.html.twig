@@ -25,19 +25,19 @@
 						</li>
 
 						<li class="nav-item">
-							<a class="nav-link" href="#">
+							<a class="nav-link" href="{{path("articles")}}">
                                 <i class="fa fa-newspaper"></i>
                                 Articles
 							</a>
 						</li>
-{# {% if user.isConnected %} #}
+   {% if user is defined and user is not null %}
 						<li class="nav-item">
-							<a class="nav-link" href="#">
+							<a class="nav-link" href="{{path('user_logout')}}">
                                 <i class="fas fa-sign-in-alt"></i>
                                Déconnection
 							</a>
 						</li>
-                        {# {% else %} #}
+                        {% else %}
                           <li class="nav-item">
 							<a class="nav-link" href="{{path('user_register')}}">
 							<i class="fas fa-user-plus"></i>
@@ -45,20 +45,23 @@
 							</a>
 						</li> 
                            <li class="nav-item">
-							<a class="nav-link" href="#">
+							<a class="nav-link" href="{{path('user_login')}}">
                                 <i class="fas fa-sign-out-alt"></i>
                                Connection
 							</a>
 						</li> 
-{# {% endif %} #}
+{% endif %}
 
                     </ul>
+ 			   {% if user is defined and user is not null %}
+
+
                     <ul class="navbar-nav ml-auto">
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-user"></i>
-                               {# {{user.firstname | title}}
-                               {{user.lastname | title}} #}
+                               {{user.firstname | title}}
+                               {{user.lastname | title}}
                             </a>
 							<div class="dropdown-menu dropdown-menu-right">
 								<a class="dropdown-item" href="#">Mon Profil</a>
@@ -68,10 +71,11 @@
                                 {# {% endif %} #}
 								
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Déconnexion</a>
+								<a class="dropdown-item" href="{{path('user_logout')}}">Déconnexion</a>
 							</div>
 						</li>
 					</ul>
+					{% endif %} 
 				</div>
 			</nav>
 			{# Systeme de FLASH en place #}

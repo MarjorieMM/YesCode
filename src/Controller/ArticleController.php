@@ -20,8 +20,6 @@ class ArticleController extends AbstractController
     // {
     public function index(): Response
     {
-        // $articles = $repo->findAll();
-        // dump($articles);
         $articleRepository = $this->getDoctrine()
         ->getManager()
         ->getRepository('App\Entity\Article');
