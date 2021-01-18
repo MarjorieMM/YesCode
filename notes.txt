@@ -68,6 +68,12 @@ Pour hasher mot de passe :
 dans App\Entity\User : 
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
+
+Pour l'authentication :
+
+Ajouter dans l'entity user (en cas d'erreur) : 
+
 class User implements UserInterface
 {
 
@@ -90,10 +96,6 @@ class User implements UserInterface
         return ['ROLE_USER'];
     }
 
-
-Pour l'authentication :
-
-Ajouter dans l'entity user (en cas d'erreur) : 
 
 php bin/console make:auth
 

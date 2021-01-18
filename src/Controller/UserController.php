@@ -19,7 +19,7 @@ class UserController extends AbstractController
      */
     public function index(UserRepository $repo): Response
     {
-        $users = $repo->selectUserWithFullname();
+        $users = $repo->findAll();
 
         return $this->render('user/index.html.twig', [
             'users' => $users,
@@ -43,7 +43,7 @@ class UserController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            $this->addFlash('success', "L'utilisateur <strong>{$user->getLastname()}</strong> a bien été créé");
+            $this->addFlash('success', "L'utilisateur <strong>{$user->getFullname()}</strong> a bien été créé");
 
             return $this->redirectToRoute('user_show', [
             'slug' => $user->getSlug(),
@@ -98,12 +98,23 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/user/showarticles/{slug}", name="ua_show")
+     */
+    public function showua($slug, UserRepository $userRepository)
+    {
+        $user = $userRepository->findOneBySlug($slug);
+
+        return $this->render('article/uashow.html.twig', [
+                'user' => $user,
+            ]);
+    }
+
+    /**
      * @Route("/user/show/{slug}", name="user_show")
      */
     public function show($slug, UserRepository $userRepository)
     {
         $user = $userRepository->findOneBySlug($slug);
-        dump($user);
 
         return $this->render('user/show.html.twig', [
                 'user' => $user,

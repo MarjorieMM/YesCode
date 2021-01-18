@@ -64,8 +64,8 @@
                                {{user.lastname | title}}
                             </a>
 							<div class="dropdown-menu dropdown-menu-right">
-								<a class="dropdown-item" href="#">Mon Profil</a>
-								<a class="dropdown-item" href="#">Mes articles</a>
+								<a class="dropdown-item" href="{{path('user_show', {'slug': user.slug} )}}">Mon Profil</a>
+								<a class="dropdown-item" href="{{path('ua_show', {'slug': user.slug} )}}">Mes articles</a>
                                 {# {% if user.role == "admin" %} #}
                                 <a class="dropdown-item" href="#">Espace Admin</a>
                                 {# {% endif %} #}

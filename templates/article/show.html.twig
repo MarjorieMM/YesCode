@@ -8,6 +8,8 @@
 
     <h1 class="my-5">{{article.title}}</h1>
     <p class="text-left">Ecris le {{article.createdAt | date('d/m/Y à H:i')}}</p>
+    <p class="my-2 p-2">Par : {{article.author.fullname}}</p>
+
     <p class="my-2 border p-2">{{article.intro}}</p>
 <div class="m-auto"></div>
     <img src="{{article.image}}" alt="photo de l'article {{article.title}}">

@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
+use App\Entity\Role;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -22,7 +23,19 @@ class AppFixtures extends Fixture
     {
         // création des utilisateurs avec Faker
         $faker = Factory::create('fr_FR');
+        $adminRole = new Role();
+        $adminRole->setTitle('ROLE_ADMIN');
+        $manager->persist($adminRole);
 
+        $adminUser = new User();
+        $adminUser->setFirstName('Jean')
+                     ->setLastname('Bon')
+                     ->setEmail('JB_800@gmail.com')
+                     ->setHash($this->encoder->encodePassword($adminUser, 'password'))
+                     ->setAvatar('https://randomuser.me/api/portraits/men/56')
+                     ->setPresentation('Compte du super utilisateur')
+                     ->addUserRole($adminRole);
+        $manager->persist($adminUser);
         $users = [];
         // Tableau users pour faire des auteurs aléatoires
         $genders = ['male', 'female'];
@@ -57,11 +70,12 @@ class AppFixtures extends Fixture
             $image = 'https://picsum.photos/400/300?random='.$i;
             $intro = $faker->paragraph(2);
             $content = '<p>'.implode('</p><p>', $faker->paragraphs(5)).'</p>';
-            $authors = $users[mt_rand(0, count($users) - 1)];
+            $author = $users[mt_rand(0, count($users) - 1)];
             $article->setTitle($title)
                     ->setImage($image)
                     ->setIntro($intro)
-                    ->setContent($content);
+                    ->setContent($content)
+                    ->setAuthor($author);
 
             $manager->persist($article);
         }

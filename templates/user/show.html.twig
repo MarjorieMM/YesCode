@@ -15,9 +15,29 @@
        <a href="{{path('user_update' , {'slug': user.slug}) }}" class="btn btn-primary rounded">Mettre à jour l'utilisateur</a>
     <a href="{{path('user_delete' , {'slug': user.slug}) }}" class="btn btn-danger rounded" onclick = "return confirm('Etes-vous sûre ?')")>Supprimer l'utilisateur</a> 
   </div>
+  
+
 </div>
-   
-    
+   {% if user.articles | length > 0 %}
+   <h2 class="my-5">Mes articles en ligne</h2>
+   <div class="row flex-lg-row flex-lg-row flex-column border bg-light">
+     {% for article in user.articles %}
+    {% include "partials/card.article.html.twig" %}
+  {% endfor %}</div>
+  <div class="row">
+  <div class="col text-center"><a class="h2" href="{{path('article_create')}}">Ecrire un nouvel article ? </a>
+  </div>
+  </div>
+
+  {% else %}
+    <div class="border text-center bg-lignt my-5">
+    <h2 class="my-5">Vous n'avez pas encore publié d'article !</h2>
+   <a href="{{path('article_create')}}" class="nav-link text-center h2">
+    <i class="fa fa-pen fa-1.5x"></i>
+    Ecrire un article</a>
+    </div>
+   {% endif %}
+  
 
 
 

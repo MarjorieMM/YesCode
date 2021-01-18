@@ -6,11 +6,7 @@
         <div class="card-body">
         <p class="card-text">{{article.intro}}</p>
          <a href="{{path('article_show' , {'slug': article.slug}) }}" class="btn btn-primary rounded">Lire la suite</a>
-        {# <a href="#" class="btn btn-primary rounded">Lire la suite</a> #}
-
-        {# <div class="my-3">
-        <a href="#" class="card-link">{{article.author}}</a>
-        </div> #}
+        <p class="card-text">Ecrit par <a href="{{path('user_show', {'slug':article.author.slug})}}"> {{article.author.fullname}}</a></p>
 
         </div>
         

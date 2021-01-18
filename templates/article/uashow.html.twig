@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+
+{# {% block title %}Articles postés par {{user.article.fullname}}{% endblock %} #}
+
+{% block body %}
+<div class="container">
+
+    <div class="jumbotron text-center my-5 shadow">
+        <h1 class="display-4">Voici vos articles</h1>
+        <p class="lead">Ici ça parle de code, langages et technos de demain </p>
+        <hr class="my-4">
+       
+        <p class="lead">
+         <h2 class="text-center h1">Les derniers articles</h2>
+
+    <div class="row">
+        {% for article in user.articles %}
+        {# {{dump(article)}} #}
+    {% include "partials/card.article2.html.twig" %}
+{% endfor %}
+        </div>   
+          {# <a class="btn btn-primary btn-lg shadow" href="#" role="button">  &lt;/&gt; Actualités &lt;/&gt; </a> #}
+        </p>
+    </div>
+
+
+</div>
+
+
+
+{% endblock %}

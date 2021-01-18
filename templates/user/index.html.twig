@@ -15,6 +15,7 @@
       <th scope="col">Mot de passe</th>
       <th scope="col">Avatar</th>
       <th scope="col">Présentation</th>
+      <th scope="col">Nombre d'articles publiés</th>
       <th scope="col">Slug</th>
       <th scope="col"></th>
     </tr>
@@ -33,9 +34,10 @@
       <th scope="row">{{user.hash}}</th>
     <th scope="row"> <img style="width:128px; heigth: 128px;" src="{{user.avatar}}" alt="image de {{user.fullname}}"> </th>
 
-      {# <th scope="row">{{name.fullname}}</th> #}
 
       <th scope="row">{{user.presentation}}</th>
+      <th scope="row">{{user.articles | length}}</th>
+
       <th scope="row">{{user.slug}}</th>
       <th scope="row"><a href="{{path('user_show' , {'slug': user.slug}) }}" class="btn btn-danger rounded">Voir l'utilisateur</a></th>
     </tr>

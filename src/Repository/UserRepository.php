@@ -20,12 +20,12 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function selectUserWithFullname()
-    {
-        return $this->createQueryBuilder('u')
-            ->select("u.id, u.firstname, u.lastname, CONCAT(u.firstname, ' ', u.lastname) AS fullname, u.email, u.hash, u.avatar, u.presentation, u.slug")
-            ->getQuery()
-            ->getResult()
-        ;
-    }
+    // public function selectUserWithFullname()
+    // {
+    //     return $this->createQueryBuilder('u')
+    //         ->select("u.id, u.firstname, u.lastname, CONCAT(u.firstname, ' ', u.lastname) AS fullname, u.email, u.hash, u.avatar, u.presentation, u.slug")
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
 }

@@ -42,6 +42,7 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $article->setAuthor($this->getUser());
             $manager->persist($article);
             $manager->flush();
 
@@ -75,7 +76,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/articles/{slug}/edit", name="article_update")
      */
-    public function update(EntityManagerInterface $manager, Request $request, Article $article): Response
+    public function update(EntityManagerInterface $manager, Request $request, Article $article, $slug, ArticleRepository $articleRepository): Response
     {
         $form = $this->createForm(ArticleType::class, $article);
 
@@ -83,6 +84,7 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $article = $form->getData();
+            $article->setAuthor($this->getUser());
             $manager->persist($article);
             $manager->flush();
 
@@ -95,6 +97,7 @@ class ArticleController extends AbstractController
 
         return $this->render('article/update.html.twig', [
             'form' => $form->createView(),
+            'article' => $article,
         ]);
     }
 

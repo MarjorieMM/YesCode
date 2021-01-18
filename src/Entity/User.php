@@ -7,12 +7,14 @@ use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(fields={"email"}, message="Cette adresse Email exite déjà")
  */
 class User implements UserInterface
 {
@@ -37,6 +39,8 @@ class User implements UserInterface
      */
     private $lastname;
 
+    private $fullname;
+
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Veuillez entrer adresse email")
@@ -52,6 +56,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url(message="Veuillez donner une Url valide pour votre avatar !")
      */
     private $avatar;
 
@@ -70,50 +75,22 @@ class User implements UserInterface
      */
     private $articles;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Role::class, mappedBy="users")
+     */
+    private $userRoles;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
-    }
-
-    public function getSalt()
-    {
-    }
-
-    public function getPassword()
-    {
-        return $this->hash;
-    }
-
-    public function getUsername()
-    {
-        return $this->email;
-    }
-
-    public function getRoles()
-    {
-        return ['ROLE_USER'];
-    }
-
-    public function eraseCredentials()
-    {
+        $this->userRoles = new ArrayCollection();
     }
 
     /**
      * Génère un slug automatiquement.
      *
-     *@ORM\PrePersist
-     *
-     * @return void
-     */
-    public function getFullname()
-    {
-        return $this->firstname.$this->lastname;
-    }
-
-    /**
-     * Génère un slug automatiquement.
-     *
-     *@ORM\PrePersist
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
      *
      * @return void
      */
@@ -154,6 +131,18 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getFullname(): ?string
+    {
+        return $this->lastname.' '.$this->firstname;
+    }
+
+    public function setFullname(string $fullname): self
+    {
+        $this->fullname = $fullname;
+
+        return $this;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -178,12 +167,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAvatar(): ?string
+    public function getAvatar()
     {
         return $this->avatar;
     }
 
-    public function setAvatar(string $avatar): self
+    public function setAvatar($avatar)
     {
         $this->avatar = $avatar;
 
@@ -239,6 +228,61 @@ class User implements UserInterface
             if ($article->getAuthor() === $this) {
                 $article->setAuthor(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getSalt()
+    {
+    }
+
+    public function getPassword()
+    {
+        return $this->hash;
+    }
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function getRoles()
+    {
+        $roles = $this->userRoles->map(function ($role) {
+            return $role->getTitle();
+        })->toArray();
+        $roles[] = 'ROLE_USER';
+
+        return $roles;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getUserRoles(): Collection
+    {
+        return $this->userRoles;
+    }
+
+    public function addUserRole(Role $userRole): self
+    {
+        if (!$this->userRoles->contains($userRole)) {
+            $this->userRoles[] = $userRole;
+            $userRole->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserRole(Role $userRole): self
+    {
+        if ($this->userRoles->removeElement($userRole)) {
+            $userRole->removeUser($this);
         }
 
         return $this;
